@@ -30,7 +30,7 @@ public class EarthPornPics {
 	}
 
 	public static void start(String site) throws IOException, BadLocationException {
-		System.out.println(site);
+		// System.out.println(site);
 		URL url = new URL(site);
 		HttpURLConnection httpcon = (HttpURLConnection) url.openConnection();
 		httpcon.addRequestProperty("User-Agent", "Mozilla/4.76");
@@ -50,12 +50,14 @@ public class EarthPornPics {
 				if (imgSrc.contains(goDeeper)) {
 					int size = hs.size();
 					hs.add(imgSrc);
+					// Don't want to revisit the same site multiple times.
 					if (size != hs.size()) {
 						start(imgSrc);
 					}
 				} else if (lower.startsWith("redd.it/") && ((lower.contains(".jpg") || (lower.contains(".png")) || (lower.contains(".jpeg"))
 						|| (lower.contains(".bmp")) || (lower.contains(".ico"))))) {
 					// only trying to get pictures from Reddit, not actually any images from the comments.
+					// Can remove the first part to grab all pictures (including comments)
 					try {
 						downloadImage(site, imgSrc);
 					} catch (IOException ex) {
